@@ -300,7 +300,7 @@ const $ = s => document.querySelector(s);
 const PROJECTS = [
  {id:'pluteus', c:'#f3e9d2', title:'Pluteus', tag:'Lesen · OCR · offline',
   lead:'Offline-Reader für PDF und EPUB.',
-  body:'OCR für gescannte Seiten, Markierungen, Volltextsuche, Vorlesen in acht Sprachen und Hermes, ein lokaler KI-Leseassistent. Alles läuft auf dem eigenen Rechner, nichts geht in die Cloud.',
+  body:'OCR für gescannte Seiten, Markierungen, Volltextsuche, Vorlesen in acht Sprachen und Hermes, ein lokaler KI-Leseassistent. Alles läuft auf dem eigenen Rechner, nichts geht in die Cloud. Die Oberfläche ist bisher auf Türkisch.',
   tech:['React','Electron','PDF.js','ONNX'], st:'Version 0.28', video:'videos/pluteus.mp4', poster:'videos/pluteus.jpg'},
  {id:'sweethaus', c:'#ffb547', title:'Sweethaus', tag:'Belege → Tageswerte',
   lead:'Betriebs- und Buchhaltungs-App für eine Bäckerei.',
@@ -367,7 +367,8 @@ const stWords = [...st.querySelectorAll('.w')];
 /* ---------- loader ---------- */
 const loader = $('#loader');
 function endLoader(){ loader.classList.add('done'); setTimeout(()=>loader.remove(),1100); }
-if(RM){ loader.remove(); } else {
+let seen=false; try{ seen=sessionStorage.getItem('fd-loader')==='1'; sessionStorage.setItem('fd-loader','1'); }catch(e){}
+if(RM||seen){ loader.remove(); } else {
   // the worlds the projects come from, then the punchline
   const ld=$('#ldWord'), WORLDS=['Bäckerei','Mietwagen','Labor','Bibliothek'];
   const show=(html,cls)=>{ ld.className='ld-word '+(cls||''); ld.style.fontSize=''; ld.innerHTML=html;
